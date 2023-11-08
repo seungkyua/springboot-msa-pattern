@@ -1,10 +1,10 @@
-package com.example.msapattern;
+package com.example.customerservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MsaPatternApplicationTests {
+class CustomerServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
