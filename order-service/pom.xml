@@ -11,4 +11,22 @@
 
 	<artifactId>order-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>customer-service</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- eventuate - SagaInstanceFactory -->
+        <dependency>
+            <groupId>io.eventuate.tram.sagas</groupId>
+            <artifactId>eventuate-tram-sagas-spring-orchestration-simple-dsl-starter</artifactId>
+            <version>0.23.0.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+
+
 </project>
