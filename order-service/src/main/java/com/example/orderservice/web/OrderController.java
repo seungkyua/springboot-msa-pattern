@@ -3,9 +3,8 @@ package com.example.orderservice.web;
 import com.example.orderservice.domain.Order;
 import com.example.orderservice.messaging.OrderDetails;
 import com.example.orderservice.repository.OrderRepository;
-import com.example.orderservice.service.OrderService;
+import com.example.orderservice.service.OrderSagaService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +14,12 @@ import java.util.stream.Collectors;
 @RestController
 public class OrderController {
 
-    private OrderService orderService;
+    private OrderSagaService orderSagaService;
     private OrderRepository orderRepository;
 
-    public OrderController(OrderService orderService,
+    public OrderController(OrderSagaService orderSagaService,
                            OrderRepository orderRepository) {
-        this.orderService = orderService;
+        this.orderSagaService = orderSagaService;
         this.orderRepository = orderRepository;
     }
 
@@ -28,7 +27,7 @@ public class OrderController {
     public CreateOrderResponse createOrder(
             @RequestBody CreateOrderRequest createOrderRequest) {
 
-        Order order = orderService.createOrder(
+        Order order = orderSagaService.createOrder(
                 new OrderDetails(createOrderRequest.getCustomerId(),
                         createOrderRequest.getOrderTotal()));
 
