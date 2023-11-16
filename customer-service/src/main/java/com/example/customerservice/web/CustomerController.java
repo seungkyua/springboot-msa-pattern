@@ -46,4 +46,9 @@ public class CustomerController {
 
     }
 
+    @GetMapping(path="/healthz")
+    public ResponseEntity<Void> healthCheck() {
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -1,6 +1,6 @@
 apiVersion: v2
-name: order-service
-description: A Helm chart for MSA Pattern order-service
+name: eventuate-cdc-service
+description: A Helm chart for MSA Pattern eventuate-cdc-service
 
 # A chart can be either an 'application' or a 'library' chart.
 #

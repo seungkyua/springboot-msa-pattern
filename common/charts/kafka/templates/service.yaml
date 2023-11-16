@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "springboot-docker.fullname" . }}
+  labels:
+    {{- include "springboot-docker.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: lx
+      protocol: TCP
+      name: lx
+    - port: 29092
+      targetPort: lc
+      protocol: TCP
+      name: lc
+    - port: 43203
+      targetPort: controller
+      protocol: TCP
+      name: controller
+  selector:
+    {{- include "springboot-docker.selectorLabels" . | nindent 4 }}

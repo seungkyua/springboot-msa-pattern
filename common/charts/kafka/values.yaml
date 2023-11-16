@@ -5,15 +5,14 @@
 replicaCount: 1
 
 image:
-  repository: seungkyua/order-service
-  pullPolicy: Always
-#  pullPolicy: IfNotPresent
+  repository: eventuateio/eventuate-kafka
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0.0"
+  tag: "0.18.0.RELEASE"
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "order-service"
+fullnameOverride: "kafka"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -41,37 +40,24 @@ securityContext: {}
   # runAsUser: 1000
 
 env:
-  - name: JAVA_OPTS
-    value: "-Dspring.profiles.active=prod"
-#  - name: JAVA_OPTS
-#    value: "-Ddebug -Xmx128m"
-#  - name: SPRING_DATASOURCE_URL
-#    value: "jdbc:mysql://mysql/eventuate"
-#  - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
-#    value: "com.mysql.cj.jdbc.Driver"
-#  - name: SPRING_DATASOURCE_HIKARI_JDBC_URL
-#    value: "jdbc:mysql://mysql/eventuate"
-#  - name: SPRING_DATASOURCE_HIKARI_DRIVER_CLASS_NAME
-#    value: "com.mysql.cj.jdbc.Driver"
-#  - name: SPRING_DATASOURCE_HIKARI_USERNAME
-#    value: "mysqluser"
-#  - name: SPRING_DATASOURCE_HIKARI_PASSWORD
-#    value: "mysqlpw"
-#  - name: EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS
-#    value: "kafka:29092"
-#  - name: EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING
-#    value: "zookeeper:2181"
-#  - name: MANAGEMENT_TRACING_ENABLED
-#    value: "true"
-#  - name: MANAGEMENT_TRACING_SAMPLING_PROBABILITY
-#    value: "1.0"
-#  - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
-#    value: "http://zipkin:9411/api/v2/spans"
+  - name: KAFKA_LISTENERS
+    value: "LC://:29092,LX://:9092"
+  - name: KAFKA_ADVERTISED_LISTENERS
+    value: "LC://kafka:29092,LX://kafka:9092"
+  - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+    value: "LC:PLAINTEXT,LX:PLAINTEXT"
+  - name: KAFKA_INTER_BROKER_LISTENER_NAME
+    value: "LC"
+  - name: KAFKA_ZOOKEEPER_CONNECT
+    value: "zookeeper:2181"
+  - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+    value: "1"
+  - name: KAFKA_HEAP_OPTS
+    value: "-Xmx256m"
 
 service:
-#  type: ClusterIP
-  type: LoadBalancer
-  port: 8081
+  type: ClusterIP
+  port: 9092
 
 ingress:
   enabled: false
@@ -80,7 +66,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: order-service.taco-cat.xyz
+    - host: kafka.taco-cat.xyz
       paths:
         - path: /
           pathType: ImplementationSpecific

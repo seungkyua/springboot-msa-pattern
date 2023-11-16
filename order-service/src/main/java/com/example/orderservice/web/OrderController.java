@@ -62,4 +62,9 @@ public class OrderController {
                         .collect(Collectors.toList()),
                 HttpStatus.OK);
     }
+
+    @GetMapping(path="/healthz")
+    public ResponseEntity<Void> healthCheck() {
+        return ResponseEntity.ok().build();
+    }
 }
