@@ -1,6 +1,6 @@
 package com.example.orderservice.proxies;
 
-import com.example.customerservice.web.GetCustomerResponse;
+import com.example.common.web.GetCustomerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

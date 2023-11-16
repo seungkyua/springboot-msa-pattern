@@ -1,6 +1,6 @@
-package com.example.customerservice.web;
+package com.example.common.web;
 
-import com.example.customerservice.common.Money;
+import com.example.common.Money;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
 package com.example.orderservice.messaging;
 
-import com.example.customerservice.common.Money;
+import com.example.common.Money;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import lombok.Getter;

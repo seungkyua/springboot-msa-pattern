@@ -1,4 +1,4 @@
-package com.example.customerservice.common;
+package com.example.common;
 
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;

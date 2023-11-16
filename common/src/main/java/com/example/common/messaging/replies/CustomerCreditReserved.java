@@ -1,4 +1,4 @@
-package com.example.customerservice.messaging.replies;
+package com.example.common.messaging.replies;
 
 public class CustomerCreditReserved implements ReserveCreditResult {
 }

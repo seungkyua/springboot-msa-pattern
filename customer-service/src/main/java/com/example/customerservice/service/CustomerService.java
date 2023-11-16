@@ -1,6 +1,6 @@
 package com.example.customerservice.service;
 
-import com.example.customerservice.common.Money;
+import com.example.common.Money;
 import com.example.customerservice.domain.Customer;
 import com.example.customerservice.exception.CustomerCreditLimitExceededException;
 import com.example.customerservice.exception.CustomerNotFoundException;

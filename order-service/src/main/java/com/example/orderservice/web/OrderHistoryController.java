@@ -1,6 +1,6 @@
 package com.example.orderservice.web;
 
-import com.example.customerservice.web.GetCustomerResponse;
+import com.example.common.web.GetCustomerResponse;
 import com.example.orderservice.domain.Order;
 import com.example.orderservice.proxies.CustomerServiceProxy;
 import com.example.orderservice.repository.OrderRepository;

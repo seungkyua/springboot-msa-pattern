@@ -1,6 +1,6 @@
 package com.example.orderservice.web;
 
-import com.example.customerservice.common.Money;
+import com.example.common.Money;
 import com.example.orderservice.domain.Order;
 import lombok.Getter;
 import lombok.Setter;

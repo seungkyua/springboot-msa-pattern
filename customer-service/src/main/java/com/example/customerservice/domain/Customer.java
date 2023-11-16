@@ -1,6 +1,6 @@
 package com.example.customerservice.domain;
 
-import com.example.customerservice.common.Money;
+import com.example.common.Money;
 import com.example.customerservice.exception.CustomerCreditLimitExceededException;
 import jakarta.persistence.*;
 import lombok.Getter;

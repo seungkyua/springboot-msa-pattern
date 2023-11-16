@@ -1,9 +1,9 @@
 package com.example.customerservice.web;
 
+import com.example.common.web.GetCustomerResponse;
 import com.example.customerservice.domain.Customer;
 import com.example.customerservice.repository.CustomerRepository;
 import com.example.customerservice.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

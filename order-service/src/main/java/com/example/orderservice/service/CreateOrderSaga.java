@@ -1,20 +1,23 @@
 package com.example.orderservice.service;
 
-import com.example.customerservice.common.Money;
-import com.example.customerservice.messaging.commands.ReserveCreditCommand;
-import com.example.customerservice.messaging.replies.CustomerCreditLimitExceeded;
-import com.example.customerservice.messaging.replies.CustomerNotFound;
+import com.example.common.Money;
+import com.example.common.messaging.commands.ReserveCreditCommand;
+import com.example.common.messaging.replies.CustomerCreditLimitExceeded;
+import com.example.common.messaging.replies.CustomerNotFound;
 import com.example.orderservice.domain.Order;
 import com.example.orderservice.messaging.CreateOrderSagaData;
 import com.example.orderservice.messaging.RejectionReason;
 import io.eventuate.tram.commands.consumer.CommandWithDestination;
 import io.eventuate.tram.sagas.orchestration.SagaDefinition;
 import io.eventuate.tram.sagas.simpledsl.SimpleSaga;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.eventuate.tram.commands.consumer.CommandWithDestinationBuilder.send;
 
 public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
 
+    private final Logger _logger = LoggerFactory.getLogger(getClass());
     private final OrderService orderService;
 
     public CreateOrderSaga(OrderService orderService) {
@@ -55,12 +58,15 @@ public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
     }
 
     private CommandWithDestination reserveCredit(CreateOrderSagaData data) {
+        _logger.debug("================ before sending message");
         Long orderId = data.getOrderId();
         Long customerId = data.getOrderDetails().getCustomerId();
         Money orderTotal = data.getOrderDetails().getOrderTotal();
-        return send(new ReserveCreditCommand(customerId, orderId, orderTotal))
+        CommandWithDestination cwd = send(new ReserveCreditCommand(customerId, orderId, orderTotal))
                 .to("customerService")
                 .build();
+        _logger.debug("================ after sending message");
+        return cwd;
     }
 
     private void approve(CreateOrderSagaData data) {

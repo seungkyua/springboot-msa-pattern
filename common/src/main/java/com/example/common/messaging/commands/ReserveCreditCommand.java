@@ -1,6 +1,6 @@
-package com.example.customerservice.messaging.commands;
+package com.example.common.messaging.commands;
 
-import com.example.customerservice.common.Money;
+import com.example.common.Money;
 import io.eventuate.tram.commands.common.Command;
 import lombok.Getter;
 import lombok.Setter;
