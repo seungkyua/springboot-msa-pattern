@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: order-gateway
+  namespace: msa-pattern
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "order-service.msa-pattern.com"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: order
+  namespace: msa-pattern
+spec:
+  hosts:
+    - "order-service.msa-pattern.com"
+  gateways:
+    - order-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /swagger-ui
+        - uri:
+            prefix: /order
+        - uri:
+            prefix: /v3
+      route:
+        - destination:
+            host: order-service
+            port:
+              number: 8081
