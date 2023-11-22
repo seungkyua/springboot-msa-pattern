@@ -55,4 +55,4 @@ COPY --chown=1000:1000 --from=build /app/$APP_NAME/target/${JAR_FILE} /app/app.j
 
 WORKDIR /app
 
-ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar app.jar ${@}"]
+ENTRYPOINT exec java $JVM_OPTS -jar app.jar

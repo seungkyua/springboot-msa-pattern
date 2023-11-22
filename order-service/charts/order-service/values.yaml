@@ -41,7 +41,7 @@ securityContext: {}
   # runAsUser: 1000
 
 env:
-  - name: JAVA_OPTS
+  - name: JVM_OPTS
     value: "-Dspring.profiles.active=prod"
 #  - name: JAVA_OPTS
 #    value: "-Ddebug -Xmx128m"
