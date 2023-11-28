@@ -41,7 +41,7 @@ securityContext: {}
 
 env:
   - name: JAVA_OPTS
-    value: "-Xmx64m"
+    value: "-Xmx512m"
 
 service:
   type: ClusterIP

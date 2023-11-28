@@ -1,0 +1,36 @@
+{{- if and .Values.storage.enabled (not .Values.storage.existingClaim) (eq .Values.storage.type "pvc")}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "springboot-docker.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "springboot-docker.selectorLabels" . | nindent 4 }}
+    {{- with .Values.storage.extraPvcLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.storage.annotations  }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.storage.finalizers  }}
+  finalizers:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    {{- range .Values.storage.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.storage.size | quote }}
+  {{- with .Values.storage.storageClassName }}
+  storageClassName: {{ . }}
+  {{- end }}
+  {{- with .Values.storage.selectorLabels }}
+  selector:
+    matchLabels:
+    {{- toYaml . | nindent 6 }}
+  {{- end }}
+{{- end }}

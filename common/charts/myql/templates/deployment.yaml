@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "springboot-docker.fullname" . }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "springboot-docker.labels" . | nindent 4 }}
 spec:
@@ -46,14 +47,20 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            - name: data
+              mountPath: /var/lib/mysql
+              {{- if .Values.storage.subPath }}
+              subPath: {{ .Values.storage.subPath }}
+              {{- end }}
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: data
+          {{- if .Values.storage.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.existingClaim | default (include "springboot-docker.fullname" .) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end -}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

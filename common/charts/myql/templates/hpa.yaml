@@ -3,6 +3,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "springboot-docker.fullname" . }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "springboot-docker.labels" . | nindent 4 }}
 spec:
