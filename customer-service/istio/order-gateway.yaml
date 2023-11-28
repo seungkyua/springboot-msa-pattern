@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: customer-gateway
+  name: order-gateway
   namespace: msa-pattern
 spec:
   selector:
@@ -12,28 +12,28 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "customer-ahnsk.taco-cat.xyz"
+        - "order-ahnsk.taco-cat.xyz"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: customer
+  name: order
   namespace: msa-pattern
 spec:
   hosts:
-    - "customer-ahnsk.taco-cat.xyz"
+    - "order-ahnsk.taco-cat.xyz"
   gateways:
-    - customer-gateway
+    - order-gateway
   http:
     - match:
         - uri:
             prefix: /swagger-ui
         - uri:
-            prefix: /customer
+            prefix: /order
         - uri:
             prefix: /v3
       route:
         - destination:
-            host: customer-service
+            host: order-service
             port:
-              number: 8082
+              number: 8081
