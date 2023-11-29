@@ -12,7 +12,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "order-service.msa-pattern.com"
+        - "order-ahnsk.taco-cat.xyz"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -21,7 +21,7 @@ metadata:
   namespace: msa-pattern
 spec:
   hosts:
-    - "order-service.msa-pattern.com"
+    - "order-ahnsk.taco-cat.xyz"
   gateways:
     - order-gateway
   http:

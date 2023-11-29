@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: order-gateway
+  name: kafka-ui-gateway
   namespace: msa-pattern
 spec:
   selector:
@@ -12,28 +12,24 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "order-ahnsk.taco-cat.xyz"
+        - "kafka-ui-ahnsk.taco-cat.xyz"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: order
+  name: kafka-ui
   namespace: msa-pattern
 spec:
   hosts:
-    - "order-ahnsk.taco-cat.xyz"
+    - "kafka-ui-ahnsk.taco-cat.xyz"
   gateways:
-    - order-gateway
+    - kafka-ui-gateway
   http:
     - match:
         - uri:
-            prefix: /swagger-ui
-        - uri:
-            prefix: /order
-        - uri:
-            prefix: /v3
+            prefix: /
       route:
         - destination:
-            host: order-service
+            host: kafka-ui
             port:
-              number: 8081
+              number: 8080
